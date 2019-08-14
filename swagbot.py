@@ -23,7 +23,7 @@ class SeleniumTest():
         "PluginsAllowedForUrls": "https://www.swagbucks.com"
         }
         options.add_experimental_option("prefs",prefs)
-        self._driver = webdriver.Chrome("C:\\Users\\soconnel\\Downloads\\chromedriver.exe",chrome_options=options)
+        self._driver = webdriver.Chrome("chromedriver.exe",chrome_options=options)
         #self._driver = webdriver.Firefox(executable_path="C:\\Users\\soconnel\\Downloads\\geckodriver.exe")
         self._actions = ActionChains(self._driver)
         #self._driver.set_window_size(1550,2000)
@@ -289,7 +289,7 @@ class SeleniumTest():
             buttonsecond = self._driver.find_elements_by_xpath("//a[@class='aw_offerlink btn-points']")
             buttonsecond[len(buttonsecond)-1].click()
             time.sleep(10)
-            play = self._driver.find_element_by_tag_name("video")
+            play = self._driver.find_element_by_xpath("//div[@itemprop='video']")
             play.click()
             time.sleep(500)
             redeem = self._driver.find_element_by_xpath()
