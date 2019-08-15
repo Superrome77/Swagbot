@@ -27,8 +27,6 @@ class SeleniumTest():
         #self._driver = webdriver.Firefox(executable_path="C:\\Users\\soconnel\\Downloads\\geckodriver.exe")
         self._actions = ActionChains(self._driver)
         #self._driver.set_window_size(1550,2000)
-
-    def logon(self):
         self._driver.get("https://www.swagbucks.com/")
         try:
             with open("cookies.txt", 'rb') as cookiesfile:
@@ -270,42 +268,91 @@ class SeleniumTest():
             pass
 
     def watch2(self):
-        self._driver.get("https://www.swagbucks.com/discover/offer-walls/138/adscendmedia")
-        time.sleep(3)
-        frame = self._driver.find_element_by_xpath("//iframe[@id='wallIframe']")
-        self._driver.switch_to.frame(frame)
-        videos = self._driver.find_element_by_xpath("//div[@data-value='19']")
-        videos.click()
-        time.sleep(3)
-        buttons = self._driver.find_elements_by_xpath("//*[contains(text(), '+2')]")
-        #print(buttons)
-        #buttons = self._driver.find_elements_by_xpath("//*[contains(text(), '+1')]")
-        print(buttons)
-        time.sleep(2)
-        for i in buttons:
-            i.click()
-            print("clicked")
-            time.sleep(2)
-            buttonsecond = self._driver.find_elements_by_xpath("//a[@class='aw_offerlink btn-points']")
-            buttonsecond[len(buttonsecond)-1].click()
-            time.sleep(10)
-            play = self._driver.find_element_by_xpath("//div[@itemprop='video']")
-            play.click()
-            time.sleep(500)
-            redeem = self._driver.find_element_by_xpath()
-            time.sleep(4)
-            self._driver.close()
-            close = self._driver.find_element_by_xpath("//span[@class='close']")
-            close.click()
-            time.sleep(2)
-
+        self.print("-----------------------3rd party watch start----------------------")
+        for i in range(3):
+            try:
+                self._driver.get("https://www.swagbucks.com/discover/offer-walls/138/adscendmedia")
+                time.sleep(3)
+                frame = self._driver.find_element_by_xpath("//iframe[@id='wallIframe']")
+                self._driver.switch_to.frame(frame)
+                videos = self._driver.find_element_by_xpath("//div[@data-value='19']")
+                videos.click()
+                time.sleep(3)
+                buttons = self._driver.find_elements_by_xpath("//*[contains(text(), '+2')]")
+                #print(buttons)
+                #buttons = self._driver.find_elements_by_xpath("//*[contains(text(), '+1')]")
+                print(buttons)
+                time.sleep(2)
+                title = buttons[i].get_attribute("href")
+                self._driver.switch_to.default_content()
+                self._driver.get(title)
+                time.sleep(7)
+                play = self._driver.find_element_by_xpath("//div[@itemprop='video']")
+                play.click()
+                for k in range(50):
+                    time.sleep(10)
+                    try:
+                        close = self._driver.find_element_by_xpath("//a[@title='Close']")
+                        close.click()
+                        print("closed")
+                        play = self._driver.find_element_by_xpath("//div[@itemprop='video']")
+                        #play.click()
+                    except:
+                        pass
+                    try:
+                        finish = self._driver.find_element_by_xpath("//button[@id='finish_offer']")
+                        finish.click()
+                    except:
+                        pass
+                time.sleep(4)
+            except:
+                pass
+    def watch3(self):
+        for i in range(11):
+            try:
+                self._driver.get("https://www.swagbucks.com/discover/offer-walls/138/adscendmedia")
+                time.sleep(3)
+                frame = self._driver.find_element_by_xpath("//iframe[@id='wallIframe']")
+                self._driver.switch_to.frame(frame)
+                videos = self._driver.find_element_by_xpath("//div[@data-value='19']")
+                videos.click()
+                time.sleep(3)
+                buttons = self._driver.find_elements_by_xpath("//*[contains(text(), '+1')]")
+                print(buttons)
+                time.sleep(2)
+                title = buttons[i].get_attribute("href")
+                self._driver.switch_to.default_content()
+                self._driver.get(title)
+                time.sleep(7)
+                play = self._driver.find_element_by_xpath("//div[@itemprop='video']")
+                play.click()
+                for k in range(10):
+                    time.sleep(10)
+                    try:
+                        close = self._driver.find_element_by_xpath("//a[@title='Close']")
+                        close.click()
+                        print("closed")
+                        play = self._driver.find_element_by_xpath("//div[@itemprop='video']")
+                        #play.click()
+                    except:
+                        pass
+                    try:
+                        finish = self._driver.find_element_by_xpath("//button[@id='finish_offer']")
+                        finish.click()
+                    except:
+                        pass
+                time.sleep(4)
+            except:
+                pass
+        reward = self._driver.find_element_by_xpath("//button[@id='rewards']")
+        reward.click()
+        claim = self._driver.find_element_by_xpath("//button[@class='enter-promo-btn promo-code-js']")
+        claim.click()
 if __name__ == "__main__":
     rounds = 0
     t = SeleniumTest()
-    t.logon()
-    t.banner()
-    t.watch2()
     """
+    t.banner()
     t.flash()
     t.game()
     t.daily()
@@ -313,7 +360,10 @@ if __name__ == "__main__":
     t.profileSurvey()
     t.game()
     #t.watch("https://www.swagbucks.com/watch/playlists/333/news-politics?sort=8")
-    t.game()
+    #t.game()
+    """
+    t.watch3()
+    """
     t.watch("https://www.swagbucks.com/watch/playlists/3/food?sort=8")
     for i in range(30):
         t.game()
